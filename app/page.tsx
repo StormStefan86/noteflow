@@ -49,16 +49,9 @@ export default function Home() {
         return response.json() as Promise<{ user?: User | null }>;
       })
       .then((data) => {
-        if (data.user) setUser(data.user);
-        else {
-          const userId = localStorage.getItem(LOCAL_SESSION);
-          setUser(localAccounts().find((account) => account.id === userId) ?? null);
-        }
+        setUser(data.user ?? null);
       })
-      .catch(() => {
-        const userId = localStorage.getItem(LOCAL_SESSION);
-        setUser(localAccounts().find((account) => account.id === userId) ?? null);
-      });
+      .catch(() => setNotice("Die Verbindung zur Datenbank ist momentan nicht verfügbar."));
   }, []);
 
   async function authenticateLocally(payload: { name: string; email: string; password: string }) {
@@ -117,20 +110,11 @@ export default function Home() {
           body: JSON.stringify(payload),
         });
         const data = (await response.json().catch(() => ({}))) as { user?: User; error?: string };
-        if (response.status >= 500) {
-          const localUser = await authenticateLocally(payload);
-          setUser(localUser);
-          return;
-        }
         if (!response.ok) throw new Error(data.error ?? "Das Konto konnte nicht angelegt werden.");
       }
 
       const result = await signIn("credentials", { redirect: false, email: payload.email, password: payload.password });
-      if (result?.error) {
-        const localUser = await authenticateLocally(payload);
-        setUser(localUser);
-        return;
-      }
+      if (result?.error) throw new Error("E-Mail-Adresse oder Passwort ist nicht korrekt.");
       const session = await fetch("/api/auth/session").then((response) => response.json()) as { user?: User };
       if (!session.user) throw new Error("Die Anmeldung konnte nicht abgeschlossen werden.");
       setUser(session.user);
@@ -173,7 +157,7 @@ export default function Home() {
             <p className="eyebrow">{mode === "login" ? "Willkommen zur\u00fcck" : "Dein neues Konto"}</p>
             <h1>Dein n\u00e4chster Schritt beginnt hier.</h1>
             <p>
-              Deine Zugangsdaten bleiben in der lokalen Entwicklungsumgebung in diesem Browser.
+              Deine Zugangsdaten und Notizen werden sicher in der gemeinsamen Cloud-Datenbank gespeichert.
             </p>
           </div>
 
@@ -189,7 +173,7 @@ export default function Home() {
                 </p>
                 <h2 id="login-title">{mode === "login" ? "Anmelden" : "Konto erstellen"}</h2>
                 <p className="form-intro">
-                  {mode === "login" ? "Bitte gib deine Zugangsdaten ein." : "Die Daten werden nur lokal gespeichert."}
+                  {mode === "login" ? "Bitte gib deine Zugangsdaten ein." : "Dein Konto wird sicher in der Cloud gespeichert."}
                 </p>
 
                 <form method="post" onSubmit={handleSubmit}>

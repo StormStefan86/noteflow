@@ -4,7 +4,11 @@ import { PrismaClient } from "../app/generated/prisma/client";
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
 function createPrismaClient() {
-  const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL ?? "postgresql://postgres:postgres@localhost:5432/nexa_notes" });
+  const connectionString = process.env.DATABASE_URL
+    ?? process.env.POSTGRES_PRISMA_URL
+    ?? process.env.POSTGRES_URL
+    ?? "postgresql://postgres:postgres@localhost:5432/nexa_notes";
+  const adapter = new PrismaPg({ connectionString });
   return new PrismaClient({ adapter });
 }
 

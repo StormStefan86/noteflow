@@ -50,6 +50,7 @@ type NotesWorkspaceProps = {
 };
 
 const sectionColors = ["#7567d8", "#4eb7b6", "#ef9e66", "#e36f8d", "#5f88d8", "#7eb46a"];
+const DATABASE_MODE = process.env.NEXT_PUBLIC_LOCAL_DEMO_MODE !== "true";
 
 function now() {
   return new Date().toISOString();
@@ -102,10 +103,16 @@ export function NotesWorkspace({ user, onLogout }: NotesWorkspaceProps) {
   const versionTimes = useRef<Record<string, number>>({});
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = setTimeout(async () => {
       try {
         const stored = localStorage.getItem(storageKey);
         if (stored) setState(JSON.parse(stored) as WorkspaceState);
+        if (DATABASE_MODE && navigator.onLine) {
+          const response = await fetch("/api/workspace", { cache: "no-store" });
+          if (!response.ok) throw new Error("workspace-load");
+          const data = await response.json() as { state?: WorkspaceState | null };
+          if (data.state) setState(data.state);
+        }
         const storedTheme = localStorage.getItem("nexa-notes-theme") as typeof theme | null;
         if (storedTheme) setTheme(storedTheme);
       } catch {
@@ -117,12 +124,20 @@ export function NotesWorkspace({ user, onLogout }: NotesWorkspaceProps) {
     return () => clearTimeout(timer);
   }, [storageKey]);
 
-  const saveNow = useCallback(() => {
+  const saveNow = useCallback(async () => {
     try {
       localStorage.setItem(storageKey, JSON.stringify(state));
+      if (DATABASE_MODE && navigator.onLine) {
+        const response = await fetch("/api/workspace", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ state }),
+        });
+        if (!response.ok) throw new Error("workspace-save");
+      }
       setSaveStatus(navigator.onLine ? "saved" : "offline");
     } catch {
-      setSaveStatus("error");
+      setSaveStatus(navigator.onLine ? "error" : "offline");
     }
   }, [state, storageKey]);
 

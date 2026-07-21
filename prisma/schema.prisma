@@ -39,6 +39,16 @@ model User {
   comments      Comment[]
   attachments   Attachment[]
   versions      NoteVersion[]
+  workspaceSnapshot WorkspaceSnapshot?
+}
+
+model WorkspaceSnapshot {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  state     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Account {
