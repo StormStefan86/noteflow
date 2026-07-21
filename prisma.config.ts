@@ -6,6 +6,7 @@ export default defineConfig({
   migrations: { path: "prisma/migrations", seed: "tsx prisma/seed.ts" },
   datasource: {
     url: process.env.DATABASE_URL
+      ?? process.env.POSTGRES_URL_NON_POOLING
       ?? process.env.POSTGRES_PRISMA_URL
       ?? process.env.POSTGRES_URL
       ?? "postgresql://postgres:postgres@localhost:5432/nexa_notes",
