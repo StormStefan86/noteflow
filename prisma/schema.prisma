@@ -1,0 +1,201 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum NotebookRole {
+  OWNER
+  EDITOR
+  COMMENTER
+  VIEWER
+}
+
+enum CommentStatus {
+  OPEN
+  RESOLVED
+}
+
+model User {
+  id            String           @id @default(cuid())
+  name          String?
+  email         String           @unique
+  emailVerified DateTime?
+  passwordHash  String?
+  image         String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  ownedNotebooks Notebook[]       @relation("NotebookOwner")
+  memberships   NotebookMember[] @relation("NotebookMemberUser")
+  invitations   NotebookMember[] @relation("NotebookInviter")
+  createdPages  NotePage[]       @relation("PageCreator")
+  updatedPages  NotePage[]       @relation("PageUpdater")
+  quickNotes    QuickNote[]
+  comments      Comment[]
+  attachments   Attachment[]
+  versions      NoteVersion[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+  @@id([identifier, token])
+}
+
+model Notebook {
+  id          String           @id @default(cuid())
+  name        String
+  description String           @default("")
+  color       String           @default("#7567d8")
+  isFavorite  Boolean          @default(false)
+  ownerId     String
+  owner       User             @relation("NotebookOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  members     NotebookMember[]
+  sections    Section[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  deletedAt   DateTime?
+  @@index([ownerId, deletedAt])
+}
+
+model NotebookMember {
+  id         String       @id @default(cuid())
+  notebookId String
+  userId     String
+  role       NotebookRole @default(VIEWER)
+  invitedBy  String
+  createdAt  DateTime     @default(now())
+  notebook   Notebook     @relation(fields: [notebookId], references: [id], onDelete: Cascade)
+  user       User         @relation("NotebookMemberUser", fields: [userId], references: [id], onDelete: Cascade)
+  inviter    User         @relation("NotebookInviter", fields: [invitedBy], references: [id])
+  @@unique([notebookId, userId])
+  @@index([userId])
+}
+
+model Section {
+  id          String     @id @default(cuid())
+  notebookId  String
+  notebook    Notebook   @relation(fields: [notebookId], references: [id], onDelete: Cascade)
+  name        String
+  color       String     @default("#7567d8")
+  position    Int
+  isFavorite  Boolean    @default(false)
+  pages       NotePage[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  deletedAt   DateTime?
+  @@index([notebookId, position])
+  @@index([notebookId, deletedAt])
+}
+
+model NotePage {
+  id               String        @id @default(cuid())
+  sectionId        String
+  section          Section       @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  title            String        @default("Unbenannte Seite")
+  content          Json
+  plainTextContent String        @default("")
+  position         Int
+  isFavorite       Boolean       @default(false)
+  createdById      String
+  updatedById      String
+  createdBy        User          @relation("PageCreator", fields: [createdById], references: [id])
+  updatedBy        User          @relation("PageUpdater", fields: [updatedById], references: [id])
+  comments         Comment[]
+  attachments      Attachment[]
+  versions         NoteVersion[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  deletedAt        DateTime?
+  @@index([sectionId, position])
+  @@index([sectionId, deletedAt])
+}
+
+model QuickNote {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title            String   @default("Schnelle Notiz")
+  content          Json
+  plainTextContent String   @default("")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  deletedAt        DateTime?
+  @@index([userId, updatedAt])
+  @@index([userId, deletedAt])
+}
+
+model Comment {
+  id              String        @id @default(cuid())
+  notePageId      String
+  notePage        NotePage      @relation(fields: [notePageId], references: [id], onDelete: Cascade)
+  authorId        String
+  author          User          @relation(fields: [authorId], references: [id])
+  parentCommentId String?
+  parent          Comment?      @relation("CommentReplies", fields: [parentCommentId], references: [id])
+  replies         Comment[]     @relation("CommentReplies")
+  content         String
+  anchorFrom      Int?
+  anchorTo        Int?
+  status          CommentStatus @default(OPEN)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  @@index([notePageId, status])
+}
+
+model Attachment {
+  id           String   @id @default(cuid())
+  notePageId   String
+  notePage     NotePage @relation(fields: [notePageId], references: [id], onDelete: Cascade)
+  uploadedById String
+  uploadedBy   User     @relation(fields: [uploadedById], references: [id])
+  filename     String
+  url          String
+  mimeType     String
+  fileSize     Int
+  altText      String?
+  caption      String?
+  createdAt    DateTime @default(now())
+  @@index([notePageId])
+}
+
+model NoteVersion {
+  id          String   @id @default(cuid())
+  notePageId  String
+  notePage    NotePage @relation(fields: [notePageId], references: [id], onDelete: Cascade)
+  title       String
+  content     Json
+  createdById String
+  createdBy   User     @relation(fields: [createdById], references: [id])
+  createdAt   DateTime @default(now())
+  @@index([notePageId, createdAt])
+}

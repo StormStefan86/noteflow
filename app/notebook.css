@@ -1,0 +1,358 @@
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.notes-workspace {
+  --workspace-bg: #f5f6fb;
+  --workspace-surface: #ffffff;
+  --workspace-surface-2: #f8f8fc;
+  --workspace-soft: #eeecfb;
+  --workspace-line: #e4e5ee;
+  --workspace-ink: #192338;
+  --workspace-muted: #70798c;
+  --workspace-violet: #6f60ce;
+  --workspace-violet-deep: #5547b7;
+  --workspace-cyan: #58b8b8;
+  min-width: 320px;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 224px 238px 286px minmax(420px, 1fr);
+  background: var(--workspace-bg);
+  color: var(--workspace-ink);
+  overflow: hidden;
+}
+
+.notes-workspace.theme-dark {
+  --workspace-bg: #111522;
+  --workspace-surface: #181d2b;
+  --workspace-surface-2: #1d2332;
+  --workspace-soft: #282441;
+  --workspace-line: #2e3547;
+  --workspace-ink: #eff1f8;
+  --workspace-muted: #a6aec1;
+  --workspace-violet: #9c8df3;
+  --workspace-violet-deep: #baafff;
+  --workspace-cyan: #71cecd;
+}
+
+@media (prefers-color-scheme: dark) {
+  .notes-workspace.theme-system {
+    --workspace-bg: #111522;
+    --workspace-surface: #181d2b;
+    --workspace-surface-2: #1d2332;
+    --workspace-soft: #282441;
+    --workspace-line: #2e3547;
+    --workspace-ink: #eff1f8;
+    --workspace-muted: #a6aec1;
+    --workspace-violet: #9c8df3;
+    --workspace-violet-deep: #baafff;
+    --workspace-cyan: #71cecd;
+  }
+}
+
+.notes-workspace.nav-collapsed {
+  grid-template-columns: 76px 238px 286px minmax(420px, 1fr);
+}
+
+.notes-workspace.utility-view {
+  grid-template-columns: 224px minmax(0, 1fr);
+}
+
+.notes-workspace.utility-view.nav-collapsed {
+  grid-template-columns: 76px minmax(0, 1fr);
+}
+
+.notes-workspace button,
+.notes-workspace input,
+.notes-workspace select,
+.notes-workspace textarea {
+  font: inherit;
+}
+
+.notes-workspace button {
+  color: inherit;
+}
+
+.main-navigation,
+.notebook-pane,
+.page-list-pane,
+.workspace-main {
+  min-width: 0;
+  height: 100svh;
+}
+
+.main-navigation {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 14px;
+  color: #f7f8ff;
+  background: linear-gradient(178deg, #6253c4 0%, #535ebc 54%, #3d8f9c 135%);
+  box-shadow: 8px 0 28px rgba(36, 37, 82, 0.12);
+}
+
+.workspace-brand-row {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 5px;
+}
+
+.workspace-brand-mark {
+  width: 35px;
+  height: 35px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.12);
+  font-weight: 750;
+}
+
+.workspace-brand-name {
+  white-space: nowrap;
+  font-weight: 680;
+  letter-spacing: 0.02em;
+}
+
+.nav-collapse {
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72) !important;
+  cursor: pointer;
+}
+
+.nav-collapse:hover { background: rgba(255, 255, 255, 0.12); color: white !important; }
+
+.quick-note-primary {
+  min-height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin: 23px 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.16);
+  color: white !important;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 680;
+}
+
+.quick-note-primary:hover { background: rgba(255, 255, 255, 0.24); transform: translateY(-1px); }
+
+.nav-items { display: grid; gap: 4px; }
+.nav-items button {
+  min-height: 41px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  border-radius: 11px;
+  padding: 0 12px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.74) !important;
+  cursor: pointer;
+  font-size: 13px;
+  text-align: left;
+  white-space: nowrap;
+}
+.nav-items button:hover { background: rgba(255, 255, 255, 0.1); color: white !important; }
+.nav-items button.is-active { background: rgba(255, 255, 255, 0.18); color: white !important; font-weight: 650; }
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: auto;
+  padding: 13px 4px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+.user-avatar,
+.member-avatar,
+.settings-avatar {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #d9d3ff, #a9e1df);
+  color: #41378b;
+  font-size: 11px;
+  font-weight: 780;
+}
+.user-copy { min-width: 0; display: grid; flex: 1; }
+.user-copy strong { overflow: hidden; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.user-copy small { overflow: hidden; color: rgba(255,255,255,.58); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.nav-user > button { border: 0; padding: 4px; background: transparent; color: rgba(255,255,255,.72) !important; cursor: pointer; font-size: 10px; }
+.main-navigation.is-collapsed { align-items: center; padding-inline: 12px; }
+.main-navigation.is-collapsed .workspace-brand-row { width: 100%; justify-content: center; padding: 0; }
+.main-navigation.is-collapsed .nav-collapse { position: absolute; top: 64px; margin: 0; }
+.main-navigation.is-collapsed .quick-note-primary { width: 45px; margin-top: 54px; }
+.main-navigation.is-collapsed .nav-items button { width: 45px; justify-content: center; padding: 0; }
+.main-navigation.is-collapsed .nav-user { width: 100%; justify-content: center; }
+
+.notebook-pane,
+.page-list-pane {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--workspace-line);
+  background: var(--workspace-surface-2);
+}
+
+.pane-heading,
+.page-list-heading {
+  min-height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 18px 12px;
+}
+.pane-heading span,
+.page-list-heading span,
+.quick-notes-view aside header span,
+.utility-title span,
+.share-dialog header span { color: var(--workspace-muted); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.pane-heading h2,
+.page-list-heading h2,
+.quick-notes-view aside header h2 { margin: 4px 0 0; font-size: 18px; font-weight: 650; letter-spacing: -.02em; }
+.pane-heading > button,
+.page-list-heading > button,
+.quick-notes-view aside header > button {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--workspace-line);
+  border-radius: 10px;
+  background: var(--workspace-surface);
+  cursor: pointer;
+}
+
+.notebook-list,
+.section-list { display: grid; gap: 3px; padding: 3px 10px; }
+.notebook-row,
+.section-row { position: relative; border-radius: 10px; }
+.notebook-row.is-active,
+.section-row.is-active { background: var(--workspace-soft); }
+.notebook-select,
+.section-select {
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  border-radius: inherit;
+  padding: 0 10px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 12.5px;
+  text-align: left;
+}
+.notebook-select > span:nth-child(2),
+.section-select > span:nth-child(2) { min-width: 0; overflow: hidden; flex: 1; text-overflow: ellipsis; white-space: nowrap; }
+.notebook-color { width: 11px; height: 18px; flex: 0 0 auto; border-radius: 4px; }
+.section-color { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; }
+.section-select small { color: var(--workspace-muted); }
+.notebook-row.is-active .notebook-select,
+.section-row.is-active .section-select { padding-right: 10px; font-weight: 650; }
+.row-actions,
+.section-actions { display: flex; gap: 2px; padding: 0 6px 7px 27px; }
+.row-actions button,
+.section-actions button {
+  min-width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 7px;
+  background: rgba(255,255,255,.58);
+  color: var(--workspace-muted);
+  cursor: pointer;
+  font-size: 10px;
+}
+.theme-dark .row-actions button,
+.theme-dark .section-actions button { background: rgba(255,255,255,.06); }
+.row-actions button:hover,
+.section-actions button:hover { color: var(--workspace-violet); }
+.row-actions button:disabled,
+.section-actions button:disabled { opacity: .3; cursor: default; }
+.color-dot { width: 9px; height: 9px; border-radius: 50%; background: conic-gradient(#7567d8, #4eb7b6, #ef9e66, #e36f8d, #7567d8); }
+.pane-subheading { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; padding: 12px 18px 7px; border-top: 1px solid var(--workspace-line); color: var(--workspace-muted); font-size: 10px; font-weight: 730; letter-spacing: .1em; text-transform: uppercase; }
+.pane-subheading button { display: flex; align-items: center; gap: 3px; border: 0; background: transparent; color: var(--workspace-violet); cursor: pointer; font-size: 10px; font-weight: 700; }
+.notebook-pane-footer { display: flex; align-items: center; gap: 7px; margin-top: auto; padding: 13px 15px; border-top: 1px solid var(--workspace-line); color: var(--workspace-muted); font-size: 10px; }
+
+.page-list-pane { background: var(--workspace-surface); }
+.page-search { display: flex; align-items: center; gap: 8px; margin: 0 14px 12px; border: 1px solid var(--workspace-line); border-radius: 10px; padding: 0 10px; color: var(--workspace-muted); background: var(--workspace-surface-2); }
+.page-search input { width: 100%; height: 35px; border: 0; outline: 0; background: transparent; color: var(--workspace-ink); font-size: 12px; }
+.page-cards { min-height: 0; display: grid; align-content: start; gap: 7px; overflow-y: auto; padding: 0 10px 16px; }
+.page-card { position: relative; border: 1px solid transparent; border-radius: 13px; background: transparent; }
+.page-card.is-active { border-color: color-mix(in srgb, var(--workspace-violet) 28%, transparent); background: var(--workspace-soft); box-shadow: 0 8px 22px rgba(70, 64, 130, .07); }
+.page-card-main { width: 100%; display: block; border: 0; padding: 14px 13px 12px; background: transparent; cursor: pointer; text-align: left; }
+.page-card-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.page-card-title-row strong { min-width: 0; overflow: hidden; flex: 1; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.page-badges { display: flex; gap: 5px; color: var(--workspace-violet); }
+.page-card-main p { height: 32px; display: -webkit-box; overflow: hidden; margin: 8px 0 9px; color: var(--workspace-muted); font-size: 11px; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.page-card-main footer { display: flex; align-items: center; justify-content: space-between; color: var(--workspace-muted); font-size: 10px; }
+.page-card-actions { display: flex; flex-wrap: wrap; gap: 2px; padding: 0 10px 9px; }
+.page-card-actions button { width: 25px; height: 25px; display: grid; place-items: center; border: 0; border-radius: 7px; background: var(--workspace-surface); color: var(--workspace-muted); cursor: pointer; font-size: 10px; }
+.page-card-actions button:hover { color: var(--workspace-violet); }
+.page-card-actions button:disabled { opacity: .3; }
+.empty-pages { display: grid; justify-items: center; padding: 50px 20px; color: var(--workspace-muted); text-align: center; }
+.empty-pages strong { margin-top: 12px; color: var(--workspace-ink); font-size: 13px; }
+.empty-pages p { font-size: 11px; }
+.empty-pages button,
+.workspace-empty button { border: 0; border-radius: 10px; padding: 9px 14px; background: var(--workspace-violet); color: white; cursor: pointer; font-size: 12px; font-weight: 650; }
+
+.workspace-main { min-width: 0; display: flex; flex-direction: column; background: var(--workspace-surface); }
+.workspace-topbar { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 15px; border-bottom: 1px solid var(--workspace-line); padding: 0 20px; }
+.breadcrumbs { min-width: 0; display: flex; align-items: center; gap: 7px; color: var(--workspace-muted); font-size: 11px; }
+.breadcrumbs span,
+.breadcrumbs strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.breadcrumbs strong { color: var(--workspace-ink); font-weight: 640; }
+.topbar-actions { display: flex; align-items: center; gap: 6px; }
+.topbar-actions > button { min-height: 34px; display: flex; align-items: center; gap: 6px; border: 1px solid var(--workspace-line); border-radius: 9px; padding: 0 10px; background: var(--workspace-surface-2); cursor: pointer; font-size: 11px; }
+.topbar-actions > button:hover { border-color: color-mix(in srgb, var(--workspace-violet) 45%, var(--workspace-line)); color: var(--workspace-violet); }
+.action-count { min-width: 15px; height: 15px; display: grid; place-items: center; border-radius: 99px; background: var(--workspace-soft); font-size: 9px; }
+.presence { display: flex; padding-right: 6px; }
+.presence span { width: 29px; height: 29px; display: grid; place-items: center; margin-left: -7px; border: 2px solid var(--workspace-surface); border-radius: 50%; background: linear-gradient(145deg, #ded9ff, #b9e9e5); color: #41378b; font-size: 9px; font-weight: 800; }
+.presence span:first-child { margin-left: 0; }
+
+.note-editor-area { min-height: 0; display: flex; flex: 1; flex-direction: column; overflow: hidden; }
+.note-title-row { display: flex; align-items: center; gap: 12px; padding: 24px 48px 3px; }
+.note-title-input { min-width: 0; flex: 1; border: 0; outline: 0; background: transparent; color: var(--workspace-ink); font-size: clamp(28px, 3vw, 42px); font-weight: 560; letter-spacing: -.045em; }
+.note-title-row > button { width: 36px; height: 36px; display: grid; place-items: center; border: 0; border-radius: 10px; background: transparent; color: var(--workspace-muted); cursor: pointer; }
+.note-title-row > button.is-favorite { color: #e4a632; }
+.note-meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 18px; padding: 4px 50px 18px; color: var(--workspace-muted); font-size: 10px; }
+.save-indicator { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; }
+.status-saved { color: #3c8d73; }
+.status-offline { color: #c68139; }
+.status-error { color: #c55266; }
+
+.rich-editor-shell { min-height: 0; display: flex; flex: 1; flex-direction: column; }
+.editor-toolbar { position: relative; z-index: 5; border-block: 1px solid var(--workspace-line); background: var(--workspace-surface-2); }
+.toolbar-scroll { min-height: 50px; display: flex; align-items: center; gap: 3px; overflow-x: auto; padding: 7px 12px; scrollbar-width: thin; }
+.editor-tool { width: 32px; height: 32px; display: grid; flex: 0 0 auto; place-items: center; border: 0; border-radius: 8px; background: transparent; color: var(--workspace-muted); cursor: pointer; }
+.editor-tool:hover { background: var(--workspace-soft); color: var(--workspace-violet); }
+.editor-tool.is-active { background: var(--workspace-soft); color: var(--workspace-violet-deep); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--workspace-violet) 22%, transparent); }
+.editor-tool:disabled Û­4¶‰žËkºwµç`è€Äì½Ù•É™±½Üµäè…ÕÑ¼ìÁ…‘‘¥¹œè€ÐÉÁà±…µÀ ÈÑÁà°€ÕÙÜ°€ÜÑÁà¤€äÁÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µ‰œ¤ìô(¹ÕÑ¥±¥ÑäµÑ¥Ñ±”°(¹ÕÑ¥±¥ÑäµÑ¥Ñ±”µÉ½Üì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì…Àè€ÄÍÁàìô(¹ÕÑ¥±¥ÑäµÑ¥Ñ±”ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤ìô(¹ÕÑ¥±¥ÑäµÑ¥Ñ±” Äìµ…É¥¸è€ÑÁà€À€Àì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µ¥¹¬¤ì™½¹ÐµÍ¥é”è€ÈåÁàì±•ÑÑ•ÈµÍÁ…¥¹œè€´¸ÀÌÕ•´ìô(¹ÕÑ¥±¥ÑäµÑ¥Ñ±”µÉ½Üì©ÕÍÑ¥™äµ½¹Ñ•¹ÐèÍÁ…”µ‰•ÑÝ••¸ìô(¹ÕÑ¥±¥ÑäµÑ¥Ñ±”µÉ½Ü€ø‰ÕÑÑ½¸ì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÄÁÁàìÁ…‘‘¥¹œè€åÁà€ÄÉÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”¤ìÕÉÍ½ÈèÁ½¥¹Ñ•Èì™½¹ÐµÍ¥é”è€ÄÅÁàìô(¹ÕÑ¥±¥Ñäµ¡•É¼ì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì©ÕÍÑ¥™äµ½¹Ñ•¹ÐèÍÁ…”µ‰•ÑÝ••¸ì‰½É‘•Èè€ÅÁàÍ½±¥É‰„ ÄÈÀ°ÄÀÌ°ÈÄØ°¸ÄÔ¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÈÉÁàìÁ…‘‘¥¹œè€ÌÉÁà€ÌÙÁàì‰…­É½Õ¹è±¥¹•…ÈµÉ…‘¥•¹Ð ÄÄÕ‘•œ°½±½Èµµ¥à¡¥¸ÍÉˆ°Ù…È ´µÝ½É­ÍÁ…”µÍ½™Ð¤€àà”°ÑÉ…¹ÍÁ…É•¹Ð¤°½±½Èµµ¥à¡¥¸ÍÉˆ°€Œå˜Í•˜€ÐÈ”°Ù…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”¤¤¤ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤ìô(¹ÕÑ¥±¥Ñäµ¡•É¼ÍÁ…¸ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤ì™½¹ÐµÍ¥é”è€ÄÅÁàì™½¹ÐµÝ•¥¡Ðè€ÜÔÀì±•ÑÑ•ÈµÍÁ…¥¹œè€¸ÄÉ•´ìÑ•áÐµÑÉ…¹Í™½É´èÕÁÁ•É…Í”ìô(¹ÕÑ¥±¥Ñäµ¡•É¼ Äìµ…É¥¸è€ÝÁà€Àì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µ¥¹¬¤ì™½¹ÐµÍ¥é”è±…µÀ ÈáÁà°€ÑÙÜ°€ÐÍÁà¤ì±•ÑÑ•ÈµÍÁ…¥¹œè€´¸ÀÐÕ•´ìô(¹ÕÑ¥±¥Ñäµ¡•É¼Àìµ…É¥¸è€Àì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ìô(¹¡½µ”µ…Ñ¥½¹Ìì‘¥ÍÁ±…äèÉ¥ìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹ÌèÉ•Á•…Ð È°µ¥¹µ…à À°€Å™È¤¤ì…Àè€ÄÍÁàìµ…É¥¸è€ÈÁÁà€À€ÌÑÁàìô(¹¡½µ”µ…Ñ¥½¹Ì‰ÕÑÑ½¸ì‘¥ÍÁ±…äèÉ¥ìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹Ìè€ÌÕÁà€Å™Èì…Àè€ÉÁà€åÁàì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÄÕÁàìÁ…‘‘¥¹œè€ÄÕÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”¤ìÕÉÍ½ÈèÁ½¥¹Ñ•ÈìÑ•áÐµ…±¥¸è±•™Ðìô(¹¡½µ”µ…Ñ¥½¹ÌÍÙœìÉ¥µÉ½ÜèÍÁ…¸€Èì…±¥¸µÍ•±˜è•¹Ñ•Èì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤ìô(¹¡½µ”µ…Ñ¥½¹ÌÍÑÉ½¹œì™½¹ÐµÍ¥é”è€ÄÉÁàìô(¹¡½µ”µ…Ñ¥½¹ÌÍÁ…¸ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€ÄÁÁàìô(¹¡½µ”µÙ¥•ÜÍ•Ñ¥½¸€ø¡•…‘•È Èìµ…É¥¸è€À€À€ÄÍÁàì™½¹ÐµÍ¥é”è€ÄÙÁàìô(¹É•ÍÕ±ÐµÉ¥ì‘¥ÍÁ±…äèÉ¥ìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹ÌèÉ•Á•…Ð¡…ÕÑ¼µ™¥±°°µ¥¹µ…à ÈÄÁÁà°€Å™È¤¤ì…Àè€ÄÉÁàìô(¹½±±•Ñ¥½¸µ¡•…‘¥¹œìµ…É¥¸è€ÈáÁà€À€ÄÉÁàì™½¹ÐµÍ¥é”è€ÄÕÁàìô(¹É•ÍÕ±ÐµÉ¥€ø‰ÕÑÑ½¸ìÁ½Í¥Ñ¥½¸èÉ•±…Ñ¥Ù”ìµ¥¸µ¡•¥¡Ðè€ÄÐÕÁàì½Ù•É™±½Üè¡¥‘‘•¸ì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÄÕÁàìÁ…‘‘¥¹œè€ÄáÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”¤ìÕÉÍ½ÈèÁ½¥¹Ñ•ÈìÑ•áÐµ…±¥¸è±•™Ðìô(¹É•ÍÕ±ÐµÉ¥€ø‰ÕÑÑ½¸é¡½Ù•Èì‰½É‘•Èµ½±½Èè½±½Èµµ¥à¡¥¸ÍÉˆ°Ù…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤€ÌØ”°Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤¤ìÑÉ…¹Í™½É´èÑÉ…¹Í±…Ñ•d ´ÉÁà¤ì‰½àµÍ¡…‘½Üè€À€ÄÉÁà€ÌÁÁàÉ‰„ ÌÌ°ÌØ°ØÐ°¸Àà¤ìô(¹É•ÍÕ±Ðµ½±½ÈìÁ½Í¥Ñ¥½¸è…‰Í½±ÕÑ”ì¥¹Í•Ðè€À…ÕÑ¼€À€ÀìÝ¥‘Ñ è€ÑÁàìô(¹É•ÍÕ±ÐµÉ¥ÍÑÉ½¹œì‘¥ÍÁ±…äè‰±½¬ì½Ù•É™±½Üè¡¥‘‘•¸ì™½¹ÐµÍ¥é”è€ÄÍÁàìÑ•áÐµ½Ù•É™±½Üè•±±¥ÁÍ¥ÌìÝ¡¥Ñ”µÍÁ…”è¹½ÝÉ…Àìô(¹É•ÍÕ±ÐµÉ¥Àì‘¥ÍÁ±…äè€µÝ•‰­¥Ðµ‰½àì½Ù•É™±½Üè¡¥‘‘•¸ìµ…É¥¸è€ÄÉÁà€Àì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€ÄÅÁàì±¥¹”µ¡•¥¡Ðè€Ä¸Ôì€µÝ•‰­¥Ðµ‰½àµ½É¥•¹ÐèÙ•ÉÑ¥…°ì€µÝ•‰­¥Ðµ±¥¹”µ±…µÀè€Ììô(¹É•ÍÕ±ÐµÉ¥Íµ…±°ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€åÁàìô(¹±½‰…°µÍ•…É ìµ…àµÝ¥‘Ñ è€àÔÁÁàì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì…Àè€ÄÁÁàìµ…É¥¸è€ÈáÁà€À€ÄÑÁàì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÄÑÁàìÁ…‘‘¥¹œè€À€ÄÕÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”¤ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì‰½àµÍ¡…‘½Üè€À€åÁà€ÈÙÁàÉ‰„ Ìà°ÐÈ°ÜÄ°¸ÀÔ¤ìô(¹±½‰…°µÍ•…É ¥¹ÁÕÐìÝ¥‘Ñ è€ÄÀÀ”ì¡•¥¡Ðè€ÐåÁàì‰½É‘•Èè€Àì½ÕÑ±¥¹”è€Àì‰…­É½Õ¹èÑÉ…¹ÍÁ…É•¹Ðì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µ¥¹¬¤ìô(¹É•ÍÕ±Ðµ½Õ¹Ðì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€ÄÅÁàìô(¹Í•…É µÉ•ÍÕ±ÑÌ°(¹ÑÉ…Í µ±¥ÍÐì‘¥ÍÁ±…äèÉ¥ì…Àè€áÁàìµ…É¥¸µÑ½Àè€ÄÕÁàìô(¹Í•…É µÉ•ÍÕ±ÑÌ‰ÕÑÑ½¸ì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì…Àè€ÄÍÁàì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÄÍÁàìÁ…‘‘¥¹œè€ÄÍÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”¤ìÕÉÍ½ÈèÁ½¥¹Ñ•ÈìÑ•áÐµ…±¥¸è±•™Ðìô(¹Í•…É µÉ•ÍÕ±ÑÌ‰ÕÑÑ½¸€øÍÁ…¸ìÝ¥‘Ñ è€ÕÁàì¡•¥¡Ðè€ÐÉÁàì™±•àè€À€À…ÕÑ¼ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÑÁàìô(¹Í•…É µÉ•ÍÕ±ÑÌ‰ÕÑÑ½¸€ø‘¥Øìµ¥¸µÝ¥‘Ñ è€Àì‘¥ÍÁ±…äèÉ¥ì™±•àè€Äìô(¹Í•…É µÉ•ÍÕ±ÑÌÍÑÉ½¹œì™½¹ÐµÍ¥é”è€ÄÉÁàìô(¹Í•…É µÉ•ÍÕ±ÑÌÀì½Ù•É™±½Üè¡¥‘‘•¸ìµ…É¥¸è€ÍÁà€Àì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€ÄÁÁàìÑ•áÐµ½Ù•É™±½Üè•±±¥ÁÍ¥ÌìÝ¡¥Ñ”µÍÁ…”è¹½ÝÉ…Àìô(¹Í•…É µÉ•ÍÕ±ÑÌÍµ…±°ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€åÁàìô(¹Ý½É­ÍÁ…”µ•µÁÑäìµ¥¸µ¡•¥¡Ðè€ÌÈÁÁàì‘¥ÍÁ±…äèÉ¥ì…±¥¸µ½¹Ñ•¹Ðè•¹Ñ•Èì©ÕÍÑ¥™äµ¥Ñ•µÌè•¹Ñ•ÈìÁ…‘‘¥¹œè€ÌÁÁàì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ìÑ•áÐµ…±¥¸è•¹Ñ•Èìô(¹Ý½É­ÍÁ…”µ•µÁÑä Èìµ…É¥¸è€ÄÑÁà€À€ÑÁàì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µ¥¹¬¤ì™½¹ÐµÍ¥é”è€ÈÁÁàìô(¹Ý½É­ÍÁ…”µ•µÁÑäÀì™½¹ÐµÍ¥é”è€ÄÉÁàìô(¹Ý½É­ÍÁ…”µ•µÁÑä‰ÕÑÑ½¸ì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì…Àè€ÙÁàìµ…É¥¸µÑ½Àè€ÄÁÁàìô((¹ÅÕ¥¬µ¹½Ñ•ÌµÙ¥•Üìµ¥¸µ¡•¥¡Ðè€Àì‘¥ÍÁ±…äèÉ¥ìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹Ìè€ÈäÁÁàµ¥¹µ…à À°€Å™È¤ì™±•àè€Äìô(¹ÅÕ¥¬µ¹½Ñ•ÌµÙ¥•Ü€ø…Í¥‘”ìµ¥¸µ¡•¥¡Ðè€Àì½Ù•É™±½Üµäè…ÕÑ¼ì‰½É‘•ÈµÉ¥¡Ðè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”´È¤ìô(¹ÅÕ¥¬µ¹½Ñ•ÌµÙ¥•Ü…Í¥‘”¡•…‘•Èì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì©ÕÍÑ¥™äµ½¹Ñ•¹ÐèÍÁ…”µ‰•ÑÝ••¸ìÁ…‘‘¥¹œè€ÈÑÁà€ÄáÁà€ÄÕÁàìô(¹ÅÕ¥¬µ¹½Ñ•ÌµÙ¥•Ü…Í¥‘”€ø‰ÕÑÑ½¸ìÝ¥‘Ñ è…±Œ ÄÀÀ”€´€ÈÁÁà¤ì‘¥ÍÁ±…äè‰±½¬ìµ…É¥¸è€À€ÄÁÁà€ÙÁàì‰½É‘•Èè€ÅÁàÍ½±¥ÑÉ…¹ÍÁ…É•¹Ðì‰½É‘•ÈµÉ…‘¥ÕÌè€ÄÉÁàìÁ…‘‘¥¹œè€ÄÍÁàì‰…­É½Õ¹èÑÉ…¹ÍÁ…É•¹ÐìÕÉÍ½ÈèÁ½¥¹Ñ•ÈìÑ•áÐµ…±¥¸è±•™Ðìô(¹ÅÕ¥¬µ¹½Ñ•ÌµÙ¥•Ü…Í¥‘”€ø‰ÕÑÑ½¸¹¥Ìµ…Ñ¥Ù”ì‰½É‘•Èµ½±½Èè½±½Èµµ¥à¡¥¸ÍÉˆ°Ù…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤€ÈÈ”°ÑÉ…¹ÍÁ…É•¹Ð¤ì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍ½™Ð¤ìô(¹ÅÕ¥¬µ¹½Ñ•ÌµÙ¥•Ü…Í¥‘”ÍÑÉ½¹œì™½¹ÐµÍ¥é”è€ÄÉÁàìô(¹ÅÕ¥¬µ¹½Ñ•ÌµÙ¥•Ü…Í¥‘”Àì½Ù•É™±½Üè¡¥‘‘•¸ìµ…É¥¸è€ÝÁà€Àì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€ÄÁÁàìÑ•áÐµ½Ù•É™±½Üè•±±¥ÁÍ¥ÌìÝ¡¥Ñ”µÍÁ…”è¹½ÝÉ…Àìô(¹ÅÕ¥¬µ¹½Ñ•ÌµÙ¥•Ü…Í¥‘”Íµ…±°ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€åÁàìô(¹ÅÕ¥¬µ•‘¥Ñ½Èìµ¥¸µ¡•¥¡Ðè€Àì‘¥ÍÁ±…äè™±•àì™±•àµ‘¥É•Ñ¥½¸è½±Õµ¸ìô(¹ÅÕ¥¬µÑ¥Ñ±”ì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì…Àè€ÄÉÁàìÁ…‘‘¥¹œè€ÈÍÁà€ÌÑÁà€ÄÙÁàìô(¹ÅÕ¥¬µÑ¥Ñ±”€ø¥¹ÁÕÐìµ¥¸µÝ¥‘Ñ è€Àì™±•àè€Äì‰½É‘•Èè€Àì½ÕÑ±¥¹”è€Àì‰…­É½Õ¹èÑÉ…¹ÍÁ…É•¹Ðì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µ¥¹¬¤ì™½¹ÐµÍ¥é”è€ÈáÁàì™½¹ÐµÝ•¥¡Ðè€ÔàÀìô(¹ÅÕ¥¬µÑ¥Ñ±”€ø‘¥Øì‘¥ÍÁ±…äè™±•àì…Àè€ÕÁàìô(¹ÅÕ¥¬µÑ¥Ñ±”‰ÕÑÑ½¸ìµ¥¸µ¡•¥¡Ðè€ÌÍÁàì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€åÁàìÁ…‘‘¥¹œè€À€ÄÁÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”´È¤ìÕÉÍ½ÈèÁ½¥¹Ñ•Èì™½¹ÐµÍ¥é”è€ÄÁÁàìô((¹ÑÉ…Í µ±¥ÍÐ…ÉÑ¥±”ì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì…Àè€áÁàì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÄÉÁàìÁ…‘‘¥¹œè€ÄÍÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”¤ìô(¹ÑÉ…Í µ±¥ÍÐ…ÉÑ¥±”€ø‘¥Øìµ¥¸µÝ¥‘Ñ è€Àì‘¥ÍÁ±…äèÉ¥ì™±•àè€Äìô(¹ÑÉ…Í µ±¥ÍÐÍÑÉ½¹œì™½¹ÐµÍ¥é”è€ÄÉÁàìô(¹ÑÉ…Í µ±¥ÍÐÍÁ…¸ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€ÄÁÁàìô(¹ÑÉ…Í µ±¥ÍÐ‰ÕÑÑ½¸ì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì…Àè€ÕÁàì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€áÁàìÁ…‘‘¥¹œè€ÝÁà€åÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”´È¤ìÕÉÍ½ÈèÁ½¥¹Ñ•Èì™½¹ÐµÍ¥é”è€ÄÁÁàìô(¹Í•ÑÑ¥¹ÌµÙ¥•ÜÍ•Ñ¥½¸ìµ…àµÝ¥‘Ñ è€ÜØÁÁàìµ…É¥¸µÑ½Àè€ÈÕÁàì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÄÙÁàìÁ…‘‘¥¹œè€ÈÁÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”¤ìô(¹Í•ÑÑ¥¹ÌµÙ¥•ÜÍ•Ñ¥½¸ Èìµ…É¥¸è€À€À€ÄÕÁàì™½¹ÐµÍ¥é”è€ÄÑÁàìô(¹ÁÉ½™¥±”µÍ•ÑÑ¥¹Ìì‘¥ÍÁ±…äèÉ¥ìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹Ìè…ÕÑ¼€Å™È€Å™Èì…±¥¸µ¥Ñ•µÌè•¹ì…Àè€ÄÑÁàìô(¹Í•ÑÑ¥¹Ìµ…Ù…Ñ…ÈìÝ¥‘Ñ è€ÐáÁàì¡•¥¡Ðè€ÐáÁàìô(¹ÁÉ½™¥±”µÍ•ÑÑ¥¹Ì±…‰•°ì‘¥ÍÁ±…äèÉ¥ì…Àè€ÙÁàì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€ÄÁÁàìô(¹ÁÉ½™¥±”µÍ•ÑÑ¥¹Ì¥¹ÁÕÐì¡•¥¡Ðè€ÌáÁàì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€åÁàì½ÕÑ±¥¹”è€ÀìÁ…‘‘¥¹œè€À€ÄÁÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”´È¤ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µ¥¹¬¤ìô(¹Ñ¡•µ”µ½ÁÑ¥½¹Ìì‘¥ÍÁ±…äè™±•àì…Àè€åÁàìô(¹Ñ¡•µ”µ½ÁÑ¥½¹Ì‰ÕÑÑ½¸ìµ¥¸µÝ¥‘Ñ è€ÄÀÕÁàì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì©ÕÍÑ¥™äµ½¹Ñ•¹Ðè•¹Ñ•Èì…Àè€ÝÁàì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÄÁÁàìÁ…‘‘¥¹œè€ÄÁÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”´È¤ìÕÉÍ½ÈèÁ½¥¹Ñ•Èìô(¹Ñ¡•µ”µ½ÁÑ¥½¹Ì‰ÕÑÑ½¸¹¥Ìµ…Ñ¥Ù”ì‰½É‘•Èµ½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤ì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍ½™Ð¤ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤ìô((¹‘¥…±½œµ‰…­‘É½ÀìÁ½Í¥Ñ¥½¸è™¥á•ìèµ¥¹‘•àè€ÐÀì¥¹Í•Ðè€Àì‘¥ÍÁ±…äèÉ¥ìÁ±…”µ¥Ñ•µÌè•¹Ñ•ÈìÁ…‘‘¥¹œè€ÈÁÁàì‰…­É½Õ¹èÉ‰„ ÈÀ°ÈÈ°ÌÔ°¸ÐÔ¤ì‰…­‘É½Àµ™¥±Ñ•Èè‰±ÕÈ ÕÁà¤ìô(¹Í¡…É”µ‘¥…±½œìÝ¥‘Ñ èµ¥¸ ØÀÁÁà°€ÄÀÀ”¤ìµ…àµ¡•¥¡Ðèµ¥¸ ÜØÁÁà°€äÉÍÙ ¤ì½Ù•É™±½Üµäè…ÕÑ¼ì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÈÁÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”¤ì‰½àµÍ¡…‘½Üè€À€ÌÁÁà€àÁÁàÉ‰„ ÈÀ°ÈÈ°ÐÔ°¸ÈØ¤ìô(¹Í¡…É”µ‘¥…±½œ€ø¡•…‘•Èì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì©ÕÍÑ¥™äµ½¹Ñ•¹ÐèÍÁ…”µ‰•ÑÝ••¸ì‰½É‘•Èµ‰½ÑÑ½´è€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ìÁ…‘‘¥¹œè€ÄáÁà€ÈÁÁàìô(¹Í¡…É”µ‘¥…±½œ€ø¡•…‘•È€ø‘¥Øì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì…Àè€ÄÅÁàì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤ìô(¹Í¡…É”µ‘¥…±½œ Èìµ…É¥¸è€ÍÁà€À€Àì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µ¥¹¬¤ì™½¹ÐµÍ¥é”è€ÄÝÁàìô(¹Í¡…É”µ‘¥…±½œ€ø¡•…‘•È‰ÕÑÑ½¸ìÝ¥‘Ñ è€ÌÉÁàì¡•¥¡Ðè€ÌÉÁàì‘¥ÍÁ±…äèÉ¥ìÁ±…”µ¥Ñ•µÌè•¹Ñ•Èì‰½É‘•Èè€Àì‰½É‘•ÈµÉ…‘¥ÕÌè€áÁàì‰…­É½Õ¹èÑÉ…¹ÍÁ…É•¹ÐìÕÉÍ½ÈèÁ½¥¹Ñ•Èìô(¹Í¡…É”µ‘¥…±½œ™½É´ì‘¥ÍÁ±…äèÉ¥ìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹Ìè€Å™È€ÄÔÕÁà…ÕÑ¼ì…Àè€áÁàìÁ…‘‘¥¹œè€ÄáÁà€ÈÁÁàìô(¹Í¡…É”µ‘¥…±½œ™½É´±…‰•°ì‘¥ÍÁ±…äèÉ¥ì…Àè€ÕÁàì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€åÁàìô(¹Í¡…É”µ‘¥…±½œ¥¹ÁÕÐ°(¹Í¡…É”µ‘¥…±½œÍ•±•Ðì¡•¥¡Ðè€ÐÁÁàì‰½É‘•Èè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€åÁàì½ÕÑ±¥¹”è€ÀìÁ…‘‘¥¹œè€À€ÄÁÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”´È¤ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µ¥¹¬¤ìô(¹Í¡…É”µ‘¥…±½œ™½É´€ø‰ÕÑÑ½¸ì…±¥¸µÍ•±˜è•¹ì¡•¥¡Ðè€ÐÁÁàì‰½É‘•Èè€Àì‰½É‘•ÈµÉ…‘¥ÕÌè€åÁàìÁ…‘‘¥¹œè€À€ÄÍÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤ì½±½ÈèÝ¡¥Ñ”ìÕÉÍ½ÈèÁ½¥¹Ñ•Èìô(¹µ•µ‰•Èµ±¥ÍÐìÁ…‘‘¥¹œè€À€ÈÁÁà€ÈÁÁàìô(¹µ•µ‰•Èµ±¥ÍÐ Ìì™½¹ÐµÍ¥é”è€ÄÉÁàìô(¹µ•µ‰•Èµ±¥ÍÐ…ÉÑ¥±”ì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì…Àè€ÄÁÁàì‰½É‘•ÈµÑ½Àè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ìÁ…‘‘¥¹œè€ÄÅÁà€Àìô(¹µ•µ‰•Èµ±¥ÍÐ…ÉÑ¥±”€ø‘¥Øìµ¥¸µÝ¥‘Ñ è€Àì‘¥ÍÁ±…äèÉ¥ì™±•àè€Äìô(¹µ•µ‰•Èµ±¥ÍÐÍÑÉ½¹œì™½¹ÐµÍ¥é”è€ÄÅÁàìô(¹µ•µ‰•Èµ±¥ÍÐÍµ…±°ì½Ù•É™±½Üè¡¥‘‘•¸ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€åÁàìÑ•áÐµ½Ù•É™±½Üè•±±¥ÁÍ¥ÌìÝ¡¥Ñ”µÍÁ…”è¹½ÝÉ…Àìô(¹µ•µ‰•Èµ±¥ÍÐÍ•±•Ðì¡•¥¡Ðè€ÌÉÁàì™½¹ÐµÍ¥é”è€ÄÁÁàìô(¹µ•µ‰•Èµ±¥ÍÐ…ÉÑ¥±”€ø‰ÕÑÑ½¸ìÝ¥‘Ñ è€ÈáÁàì¡•¥¡Ðè€ÈáÁàì‘¥ÍÁ±…äèÉ¥ìÁ±…”µ¥Ñ•µÌè•¹Ñ•Èì‰½É‘•Èè€Àì‰½É‘•ÈµÉ…‘¥ÕÌè€áÁàì‰…­É½Õ¹èÙ…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”´È¤ìÕÉÍ½ÈèÁ½¥¹Ñ•Èìô(¹½Ý¹•Èµ±…‰•°ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€ÄÁÁàìô(¹Ý½É­ÍÁ…”µÑ½…ÍÐìÁ½Í¥Ñ¥½¸è™¥á•ìèµ¥¹‘•àè€ØÀìÉ¥¡Ðè€ÈÉÁàì‰½ÑÑ½´è€ÈÉÁàìµ…àµÝ¥‘Ñ è€ÌäÁÁàì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì…Àè€ÄÉÁàì‰½É‘•Èè€ÅÁàÍ½±¥É‰„ ÈÔÔ°ÈÔÔ°ÈÔÔ°¸È¤ì‰½É‘•ÈµÉ…‘¥ÕÌè€ÄÉÁàìÁ…‘‘¥¹œè€ÄÅÁà€ÄÉÁà€ÄÅÁà€ÄÕÁàì‰…­É½Õ¹è€ŒÈÈÈØÍ„ì‰½àµÍ¡…‘½Üè€À€ÄáÁà€ÐÕÁàÉ‰„ ÄØ°Äà°ÌÈ°¸ÈØ¤ì½±½ÈèÝ¡¥Ñ”ì™½¹ÐµÍ¥é”è€ÄÅÁàìô(¹Ý½É­ÍÁ…”µÑ½…ÍÐ‰ÕÑÑ½¸ìÝ¥‘Ñ è€ÈÕÁàì¡•¥¡Ðè€ÈÕÁàì‘¥ÍÁ±…äèÉ¥ìÁ±…”µ¥Ñ•µÌè•¹Ñ•Èì‰½É‘•Èè€Àì‰½É‘•ÈµÉ…‘¥ÕÌè€ÝÁàì‰…­É½Õ¹èÉ‰„ ÈÔÔ°ÈÔÔ°ÈÔÔ°¸Ä¤ì½±½ÈèÝ¡¥Ñ”ìÕÉÍ½ÈèÁ½¥¹Ñ•Èìô(¹µ½‰¥±”µÝ½É­ÍÁ…”µ¹…Øì‘¥ÍÁ±…äè¹½¹”ìô((¹¹½Ñ•ÌµÝ½É­ÍÁ…”‰ÕÑÑ½¸é™½ÕÌµÙ¥Í¥‰±”°(¹¹½Ñ•ÌµÝ½É­ÍÁ…”¥¹ÁÕÐé™½ÕÌµÙ¥Í¥‰±”°(¹¹½Ñ•ÌµÝ½É­ÍÁ…”Í•±•Ðé™½ÕÌµÙ¥Í¥‰±”°(¹¹½Ñ•ÌµÝ½É­ÍÁ…”Ñ•áÑ…É•„é™½ÕÌµÙ¥Í¥‰±”°(¹¹½Ñ”µ•‘¥Ñ½Èµ½¹Ñ•¹Ðé™½ÕÌµÙ¥Í¥‰±”ì½ÕÑ±¥¹”è€ÍÁàÍ½±¥½±½Èµµ¥à¡¥¸ÍÉˆ°Ù…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤€ÌÐ”°ÑÉ…¹ÍÁ…É•¹Ð¤ì½ÕÑ±¥¹”µ½™™Í•Ðè€ÉÁàìô()µ•‘¥„€¡µ…àµÝ¥‘Ñ è€ÄÈàÁÁà¤ì(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”ìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹Ìè€ÜÙÁà€ÈÈÁÁà€ÈØÁÁàµ¥¹µ…à ÌØÁÁà°€Å™È¤ìô(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸ì…±¥¸µ¥Ñ•µÌè•¹Ñ•ÈìÁ…‘‘¥¹œµ¥¹±¥¹”è€ÄÉÁàìô(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸€¹Ý½É­ÍÁ…”µ‰É…¹µÉ½ÜìÝ¥‘Ñ è€ÄÀÀ”ì©ÕÍÑ¥™äµ½¹Ñ•¹Ðè•¹Ñ•Èìô(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸€¹Ý½É­ÍÁ…”µ‰É…¹µ¹…µ”°(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸€¹ÅÕ¥¬µ¹½Ñ”µÁÉ¥µ…ÉäÍÁ…¸°(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸€¹¹…Øµ¥Ñ•µÌÍÁ…¸°(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸€¹ÕÍ•Èµ½Áä°(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸€¹¹…ØµÕÍ•È€ø‰ÕÑÑ½¸ì‘¥ÍÁ±…äè¹½¹”ìô(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸€¹¹…Øµ½±±…ÁÍ”ì‘¥ÍÁ±…äè¹½¹”ìô(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸€¹ÅÕ¥¬µ¹½Ñ”µÁÉ¥µ…Éä°(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸€¹¹…Øµ¥Ñ•µÌ‰ÕÑÑ½¸ìÝ¥‘Ñ è€ÐÕÁàì©ÕÍÑ¥™äµ½¹Ñ•¹Ðè•¹Ñ•ÈìÁ…‘‘¥¹œè€Àìô(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸€¹¹…ØµÕÍ•ÈìÝ¥‘Ñ è€ÄÀÀ”ì©ÕÍÑ¥™äµ½¹Ñ•¹Ðè•¹Ñ•Èìô(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”¹ÕÑ¥±¥ÑäµÙ¥•ÜìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹Ìè€ÜÙÁàµ¥¹µ…à À°€Å™È¤ìô(€€¹Ñ½Á‰…Èµ…Ñ¥½¹Ì€ø‰ÕÑÑ½¸ÍÁ…¸é¹½Ð ¹…Ñ¥½¸µ½Õ¹Ð¤ì‘¥ÍÁ±…äè¹½¹”ìô(€€¹¹½Ñ”µÑ¥Ñ±”µÉ½ÜìÁ…‘‘¥¹œµ¥¹±¥¹”è€ÌÑÁàìô(€€¹¹½Ñ”µµ•Ñ„µÉ½ÜìÁ…‘‘¥¹œµ¥¹±¥¹”è€ÌÙÁàìô(€€¹¹½Ñ”µ•‘¥Ñ½Èµ½¹Ñ•¹ÐìÁ…‘‘¥¹œµ¥¹±¥¹”è€ÐÙÁàìô)ô()µ•‘¥„€¡µ…àµÝ¥‘Ñ è€äàÁÁà¤ì(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”°(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”¹¹…Øµ½±±…ÁÍ•ìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹Ìè€ÜÁÁà€ÈÄÁÁàµ¥¹µ…à ÌÐÁÁà°€Å™È¤ìô(€€¹Á…”µ±¥ÍÐµÁ…¹”ì‘¥ÍÁ±…äè¹½¹”ìô(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”¹ÕÑ¥±¥ÑäµÙ¥•Ü°(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”¹ÕÑ¥±¥ÑäµÙ¥•Ü¹¹…Øµ½±±…ÁÍ•ìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹Ìè€ÜÁÁàµ¥¹µ…à À°€Å™È¤ìô(€€¹¹½Ñ”µÍ¥‘”µÁ…¹•°ìÁ½Í¥Ñ¥½¸è™¥á•ìÉ¥¡Ðè€ÀìÑ½Àè€Àìô)ô()µ•‘¥„€¡µ…àµÝ¥‘Ñ è€ÜÈÁÁà¤ì(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”°(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”¹¹…Øµ½±±…ÁÍ•°(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”¹ÕÑ¥±¥ÑäµÙ¥•Ü°(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”¹ÕÑ¥±¥ÑäµÙ¥•Ü¹¹…Øµ½±±…ÁÍ•ì‘¥ÍÁ±…äè‰±½¬ìµ¥¸µ¡•¥¡Ðè€ÄÀÁÍÙ ì½Ù•É™±½ÜèÙ¥Í¥‰±”ìô(€€¹µ…¥¸µ¹…Ù¥…Ñ¥½¸°(€€¹¹½Ñ•‰½½¬µÁ…¹”ì‘¥ÍÁ±…äè¹½¹”ìô(€€¹Ý½É­ÍÁ…”µµ…¥¸ì¡•¥¡Ðè€ÄÀÁÍÙ ìÁ…‘‘¥¹œµ‰½ÑÑ½´è€ØÉÁàìô(€€¹Ý½É­ÍÁ…”µÑ½Á‰…ÈìÁ…‘‘¥¹œè€À€ÄÉÁàìô(€€¹ÁÉ•Í•¹”ì‘¥ÍÁ±…äè¹½¹”ìô(€€¹Ñ½Á‰…Èµ…Ñ¥½¹Ìì…Àè€ÍÁàìô(€€¹Ñ½Á‰…Èµ…Ñ¥½¹Ì€ø‰ÕÑÑ½¸ìµ¥¸µÝ¥‘Ñ è€ÌÉÁàìÁ…‘‘¥¹œµ¥¹±¥¹”è€ÝÁàìô(€€¹¹½Ñ”µÑ¥Ñ±”µÉ½ÜìÁ…‘‘¥¹œè€ÈÁÁà€ÄáÁà€ÍÁàìô(€€¹¹½Ñ”µÑ¥Ñ±”µ¥¹ÁÕÐì™½¹ÐµÍ¥é”è€ÈáÁàìô(€€¹¹½Ñ”µµ•Ñ„µÉ½Üì…Àè€ÑÁà€ÄÁÁàìÁ…‘‘¥¹œè€ÑÁà€ÈÁÁà€ÄÉÁàìô(€€¹¹½Ñ”µµ•Ñ„µÉ½Ü€øÍÁ…¸é¹Ñ µ¡¥± È¤ì‘¥ÍÁ±…äè¹½¹”ìô(€€¹Í…Ù”µ¥¹‘¥…Ñ½Èìµ…É¥¸µ±•™Ðè€Àìô(€€¹Ñ½½±‰…ÈµÍÉ½±°ìÁ…‘‘¥¹œµ¥¹±¥¹”è€áÁàìô(€€¹¹½Ñ”µ•‘¥Ñ½Èµ½¹Ñ•¹ÐìÁ…‘‘¥¹œè€ÈÝÁà€ÈÉÁà€àÁÁàìô(€€¹ÅÕ¥¬µ¹½Ñ•ÌµÙ¥•Üì‘¥ÍÁ±…äè‰±½¬ì½Ù•É™±½Üµäè…ÕÑ¼ìô(€€¹ÅÕ¥¬µ¹½Ñ•ÌµÙ¥•Ü€ø…Í¥‘”ìµ…àµ¡•¥¡Ðè€ÈÈÁÁàì‰½É‘•ÈµÉ¥¡Ðè€Àì‰½É‘•Èµ‰½ÑÑ½´è€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ìô(€€¹ÅÕ¥¬µ•‘¥Ñ½Èìµ¥¸µ¡•¥¡Ðè€ÔÀÁÁàìô(€€¹ÕÑ¥±¥Ñäµ½¹Ñ•¹ÐìÁ…‘‘¥¹œè€ÈÝÁà€ÄÝÁà€äÁÁàìô(€€¹ÕÑ¥±¥Ñäµ¡•É¼ìÁ…‘‘¥¹œè€ÈÕÁà€ÈÉÁàìô(€€¹¡½µ”µ…Ñ¥½¹ÌìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹Ìè€Å™Èìô(€€¹ÁÉ½™¥±”µÍ•ÑÑ¥¹ÌìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹Ìè…ÕÑ¼€Å™Èìô(€€¹ÁÉ½™¥±”µÍ•ÑÑ¥¹Ì±…‰•°é±…ÍÐµ¡¥±ìÉ¥µ½±Õµ¸è€Èìô(€€¹Ñ¡•µ”µ½ÁÑ¥½¹Ìì™±•àµÝÉ…ÀèÝÉ…Àìô(€€¹ÑÉ…Í µ±¥ÍÐ…ÉÑ¥±”ì…±¥¸µ¥Ñ•µÌèÍÑÉ•Ñ ì™±•àµÝÉ…ÀèÝÉ…Àìô(€€¹ÑÉ…Í µ±¥ÍÐ…ÉÑ¥±”€ø‘¥Øì™±•àµ‰…Í¥Ìè€ÄÀÀ”ìô(€€¹Í¡…É”µ‘¥…±½œ™½É´ìÉ¥µÑ•µÁ±…Ñ”µ½±Õµ¹Ìè€Å™Èìô(€€¹Í¡…É”µ‘¥…±½œ™½É´€ø‰ÕÑÑ½¸ìÝ¥‘Ñ è€ÄÀÀ”ìô(€€¹µ•µ‰•Èµ±¥ÍÐ…ÉÑ¥±”ì™±•àµÝÉ…ÀèÝÉ…Àìô(€€¹µ½‰¥±”µÝ½É­ÍÁ…”µ¹…ØìÁ½Í¥Ñ¥½¸è™¥á•ìèµ¥¹‘•àè€ÈÀì¥¹Í•Ðè…ÕÑ¼€À€Àìµ¥¸µ¡•¥¡Ðè€ØÉÁàì‘¥ÍÁ±…äè™±•àì…±¥¸µ¥Ñ•µÌè•¹Ñ•Èì©ÕÍÑ¥™äµ½¹Ñ•¹ÐèÍÁ…”µ…É½Õ¹ì‰½É‘•ÈµÑ½Àè€ÅÁàÍ½±¥Ù…È ´µÝ½É­ÍÁ…”µ±¥¹”¤ìÁ…‘‘¥¹œè€ÙÁà€ÍÁàµ…à ÙÁà°•¹Ø¡Í…™”µ…É•„µ¥¹Í•Ðµ‰½ÑÑ½´¤¤ì‰…­É½Õ¹è½±½Èµµ¥à¡¥¸ÍÉˆ°Ù…È ´µÝ½É­ÍÁ…”µÍÕÉ™…”¤€äÈ”°ÑÉ…¹ÍÁ…É•¹Ð¤ì‰…­‘É½Àµ™¥±Ñ•Èè‰±ÕÈ ÄáÁà¤ìô(€€¹µ½‰¥±”µÝ½É­ÍÁ…”µ¹…Ø‰ÕÑÑ½¸ìµ¥¸µÝ¥‘Ñ è€ÔÑÁàì‘¥ÍÁ±…äèÉ¥ì©ÕÍÑ¥™äµ¥Ñ•µÌè•¹Ñ•Èì…Àè€ÍÁàì‰½É‘•Èè€ÀìÁ…‘‘¥¹œè€ÑÁàì‰…­É½Õ¹èÑÉ…¹ÍÁ…É•¹Ðì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µµÕÑ•¤ì™½¹ÐµÍ¥é”è€áÁàìô(€€¹µ½‰¥±”µÝ½É­ÍÁ…”µ¹…Ø‰ÕÑÑ½¸¹¥Ìµ…Ñ¥Ù”ì½±½ÈèÙ…È ´µÝ½É­ÍÁ…”µÙ¥½±•Ð¤ìô(€€¹¹½Ñ”µÍ¥‘”µÁ…¹•°ìÝ¥‘Ñ èµ¥¸ ÌÐÁÁà°€äÉÙÜ¤ìô(€€¹Ý½É­ÍÁ…”µÑ½…ÍÐìÉ¥¡Ðè€ÄÉÁàì‰½ÑÑ½´è€ÜÕÁàì±•™Ðè€ÄÉÁàìµ…àµÝ¥‘Ñ è¹½¹”ìô)ô()µ•‘¥„€¡ÁÉ•™•ÉÌµÉ•‘Õ•µµ½Ñ¥½¸èÉ•‘Õ”¤ì(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”€¨°(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”€¨èé‰•™½É”°(€€¹¹½Ñ•ÌµÝ½É­ÍÁ…”€¨èé…™Ñ•ÈìÍÉ½±°µ‰•¡…Ù¥½Èè…ÕÑ¼€…¥µÁ½ÉÑ…¹ÐìÑÉ…¹Í¥Ñ¥½¸è¹½¹”€…¥µÁ½ÉÑ…¹Ðìô)ô
