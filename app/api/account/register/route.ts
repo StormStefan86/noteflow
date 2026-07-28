@@ -34,7 +34,8 @@ export async function POST(request: Request) {
       select: { id: true, name: true, email: true, image: true },
     });
     return Response.json({ user }, { status: 201 });
-  } catch {
+  } catch (error) {
+    console.error("Account registration failed", error);
     return Response.json({ error: "Das Konto konnte momentan nicht angelegt werden." }, { status: 500 });
   }
 }
