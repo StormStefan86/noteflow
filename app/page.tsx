@@ -46,10 +46,10 @@ export default function Home() {
     fetch("/api/auth/session")
       .then(async (response) => {
         if (!response.ok) throw new Error("local-preview");
-        return response.json() as Promise<{ user?: User | null }>;
+        return response.json() as Promise<{ user?: User | null } | null>;
       })
       .then((data) => {
-        setUser(data.user ?? null);
+        setUser(data?.user ?? null);
       })
       .catch(() => setNotice("Die Verbindung zur Datenbank ist momentan nicht verfügbar."));
   }, []);
@@ -259,3 +259,4 @@ export default function Home() {
     </main>
   );
 }
+
